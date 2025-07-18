@@ -1,4 +1,5 @@
 import axios from "axios";
+import TodosService from "@/services/TodosService";
 
 const state = {
 	data: {
@@ -15,6 +16,17 @@ const mutations = {
 
 const actions = {
 	async fetchTodos({commit}) {
+		try {
+			const service = new TodosService()
+			const result = await service.todosGet()
+			console.log('sukses', result.data.data)
+			commit('setTodos', result.data.data)
+		}catch(error) {
+			console.log('fetchTodos', error)
+		}
+	},
+
+	async fetchTodosOld({commit}) {
 		const result = await axios.get("http://localhost:3000/api/todos")
 			.then((res) => res.data)
 			.catch((err) => {

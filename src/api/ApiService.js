@@ -17,6 +17,7 @@ const ApiService = axios.create({
 // Interceptor to add token to headers
 ApiService.interceptors.request.use(
 	(config) => {
+		config.headers.Authorization = 'Contoh Token'
 		return config;
 	},
 	(error) => {
@@ -36,7 +37,12 @@ ApiService.interceptors.response.use(
 
 // A separate function to handle global error responses
 function handleError(error) {
-	console.log(error);
+	console.log('handleError', error.response.status);
+	if (error.response.status >= 500) {
+		console.log('server error')
+	}else if (error.response.status >= 400) {
+		console.log('permintaan tidak sesuai')
+	}
 	return Promise.reject(error);
 }
 
