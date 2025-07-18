@@ -1,5 +1,5 @@
 <script>
-import {mapGetters, mapState} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 
 export default {
   name: "TodosView",
@@ -14,6 +14,9 @@ export default {
     ...mapGetters("todosStore", [
       "getTodosWithFilter"
     ])
+  },
+  methods: {
+    ...mapActions("todosStore", ["fetchTodos"]),
   }
 }
 </script>
@@ -22,7 +25,10 @@ export default {
   <div class="p-4">
     <h1 class="text-2xl font-bold text-blue-600">Hello Tailwind with Vue 2</h1>
     <h1 class="text-2xl font-bold text-blue-600">TODOS {{$route.params.id}}</h1>
-    <button class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Klik Saya</button>
+    <button class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Klik Saya</button> &nbsp;
+    <button
+      @click="fetchTodos"
+      class="mt-4 px-4 py-2 bg-green-700 text-white rounded hover:bg-green-600">Get Data Todos</button>
 
     <br>
     <input
