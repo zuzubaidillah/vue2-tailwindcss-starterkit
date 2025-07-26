@@ -14,6 +14,14 @@ export default {
     ...mapGetters("todosStore", [
       "getTodosWithFilter"
     ])
+  },
+  methods: {
+    onSearch() {
+      this.$store.dispatch("todosStore/fetchTodos");
+    }
+  },
+  mounted() {
+    this.$store.dispatch("todosStore/fetchTodos");
   }
 }
 </script>
@@ -29,6 +37,7 @@ export default {
       class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
       v-model="todosStore.filterName"
     >
+    <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" @click="onSearch">Cari di server</button>
     <br>
 
     getTodosWithFilter
